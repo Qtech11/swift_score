@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:swift_score/models/leagues_title.dart';
-import 'models/live_scores.dart';
-// import 'package:swift_score/screens/splash_screen.dart';
-
-import 'base_navigation_bar.dart';
+import 'package:swift_score/view_model/league_standing.dart';
+import 'package:swift_score/view_model/leagues.dart';
+import 'package:swift_score/view_model/live_scores.dart';
+import 'view/widgets/base_navigation_bar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +23,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LiveScores()),
         ChangeNotifierProvider(create: (context) => Leagues()),
+        ChangeNotifierProvider(create: (context) => LeagueStandings()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
