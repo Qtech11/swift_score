@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:swift_score/view_model/fixtures.dart';
 import 'package:swift_score/view_model/league_standing.dart';
 import 'package:swift_score/view_model/leagues.dart';
 import 'package:swift_score/view_model/live_scores.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => LiveScores()),
         ChangeNotifierProvider(create: (context) => Leagues()),
         ChangeNotifierProvider(create: (context) => LeagueStandings()),
+        ChangeNotifierProvider(create: (context) => Fixtures()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

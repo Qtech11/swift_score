@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:swift_score/models/live_scores_results.dart';
 
+import '../fixtures_results.dart';
 import '../leagues_results.dart';
 
 const apiKey =
@@ -77,16 +78,20 @@ class Api {
 
   Future<dynamic> getFixtures(String date) async {
     try {
-      http.Response response = await http.get(Uri.parse(fixtures(date)));
+      http.Response response =
+          await http.get(Uri.parse(fixtures('2022-08-30')));
 
       if (response.statusCode == 200) {
         // If the server did return a 200 OK response,
         // then parse the JSON.
         Map result = jsonDecode(response.body);
+        print(result);
+        print(result['result']);
+        print(List<FixturesResult>.from(
+            result['result'].map((x) => FixturesResult.fromJson(x))));
         if (result.containsKey('result')) {
-          return List<LiveScoresResult>.from(
-              result['result'].map((x) => LiveScoresResult.fromJson(x)));
-          // return LiveTeamModel.fromJson(result['result'][0]);
+          return List<FixturesResult>.from(
+              result['result'].map((x) => FixturesResult.fromJson(x)));
         } else {
           return 'no result';
         }

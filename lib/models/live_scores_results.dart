@@ -37,7 +37,7 @@ class LiveScoresResult {
   });
 
   String eventKey;
-  DateTime eventDate;
+  String eventDate;
   String eventTime;
   String eventHomeTeam;
   String homeTeamKey;
@@ -74,7 +74,7 @@ class LiveScoresResult {
   factory LiveScoresResult.fromJson(Map<String, dynamic> json) {
     return LiveScoresResult(
       eventKey: json["event_key"],
-      eventDate: DateTime.parse(json["event_date"]),
+      eventDate: json["event_date"],
       eventTime: json["event_time"] ?? "",
       eventHomeTeam: json["event_home_team"] ?? "",
       homeTeamKey: json["home_team_key"] ?? "",

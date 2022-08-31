@@ -37,7 +37,7 @@ class FixturesResult {
   });
 
   String eventKey;
-  DateTime eventDate;
+  String eventDate;
   String eventTime;
   String eventHomeTeam;
   String homeTeamKey;
@@ -74,7 +74,7 @@ class FixturesResult {
   factory FixturesResult.fromJson(Map<String, dynamic> json) {
     return FixturesResult(
       eventKey: json["event_key"],
-      eventDate: DateTime.parse(json["event_date"]),
+      eventDate: json["event_date"],
       eventTime: json["event_time"] ?? "",
       eventHomeTeam: json["event_home_team"] ?? "",
       homeTeamKey: json["home_team_key"] ?? "",
@@ -98,8 +98,8 @@ class FixturesResult {
       eventCountryKey: json["event_country_key"] ?? "",
       leagueLogo: json["league_logo"] ?? "",
       countryLogo: json["country_logo"] ?? "",
-      eventHomeFormation: json["event_home_formation"],
-      eventAwayFormation: json["event_away_formation"],
+      eventHomeFormation: json["event_home_formation"] ?? '',
+      eventAwayFormation: json["event_away_formation"] ?? '',
       fkStageKey: json["fk_stage_key"] ?? "",
       stageName: json["stage_name"] ?? "",
       goalScorers: List<GoalScorers>.from(
@@ -123,8 +123,8 @@ class LineUps {
 
   factory LineUps.fromJson(Map<String, dynamic> json) {
     return LineUps(
-      home: Team.fromJson(json['home']),
-      away: Team.fromJson(json['away']),
+      home: Team.fromJson(json['home_team']),
+      away: Team.fromJson(json['away_team']),
     );
   }
 }
@@ -138,15 +138,15 @@ class Team {
 
   List<StartingLineUps> startingLineUps;
   List<StartingLineUps> substitutes;
-  String coaches;
+  List coaches;
 
   factory Team.fromJson(Map<String, dynamic> json) {
     return Team(
       startingLineUps: List<StartingLineUps>.from(
           json["starting_lineups"].map((x) => StartingLineUps.fromJson(x))),
       substitutes: List<StartingLineUps>.from(
-          json["subtitutes"].map((x) => StartingLineUps.fromJson(x))),
-      coaches: json['coaches'][0]['coache'],
+          json["substitutes"].map((x) => StartingLineUps.fromJson(x))),
+      coaches: json['coaches'] ?? [],
     );
   }
 }
@@ -164,10 +164,10 @@ class StartingLineUps {
 
   factory StartingLineUps.fromJson(Map<String, dynamic> json) {
     return StartingLineUps(
-      player: json['player'],
-      playerNumber: json['player_number'],
-      playerPosition: json['player_position'],
-      playerKey: json['player_key'],
+      player: json['player'] ?? '',
+      playerNumber: json['player_number'] ?? '',
+      playerPosition: json['player_position'] ?? '',
+      playerKey: json['player_key'] ?? '',
     );
   }
 }
@@ -189,11 +189,12 @@ class Cards {
 
   factory Cards.fromJson(Map<String, dynamic> json) {
     return Cards(
-        time: json['time'],
-        homeFault: json['home_fault'],
-        card: json['card'],
-        awayFault: json['away_fault'],
-        infoTime: json['info_time']);
+      time: json['time'] ?? '',
+      homeFault: json['home_fault'] ?? '',
+      card: json['card'] ?? '',
+      awayFault: json['away_fault'] ?? '',
+      infoTime: json['info_time'] ?? '',
+    );
   }
 }
 
@@ -206,9 +207,9 @@ class Statistics {
 
   factory Statistics.fromJson(Map<String, dynamic> json) {
     return Statistics(
-      type: json['type'],
-      home: json['home'],
-      away: json['away'],
+      type: json['type'] ?? '',
+      home: json['home'] ?? '',
+      away: json['away'] ?? '',
     );
   }
 }
@@ -233,11 +234,11 @@ class GoalScorers {
   factory GoalScorers.fromJson(Map<String, dynamic> json) {
     return GoalScorers(
       time: json['time'],
-      homeScorer: json['home_scorer'],
-      homeAssist: json['home_assist'],
-      awayScorer: json['away_scorer'],
-      awayAssist: json['away_assist'],
-      score: json['score'],
+      homeScorer: json['home_scorer'] ?? '',
+      homeAssist: json['home_assist'] ?? '',
+      awayScorer: json['away_scorer'] ?? '',
+      awayAssist: json['away_assist'] ?? '',
+      score: json['score'] ?? '',
     );
   }
 }

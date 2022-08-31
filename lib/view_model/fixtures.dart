@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
-
 import '../models/fixtures_results.dart';
 import '../models/services/api.dart';
 
 class Fixtures extends ChangeNotifier {
   dynamic list = [];
-  bool loaded = false;
   Map<String, List<FixturesResult>> map = {};
   List<String> keyList = [];
   final List<List<FixturesResult>> valueList = [];
@@ -16,6 +14,7 @@ class Fixtures extends ChangeNotifier {
       rearrangeListToMap();
       convertMapKeyValueToList();
       notifyListeners();
+      // print(map);
     }
   }
 

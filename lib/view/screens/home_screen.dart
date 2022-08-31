@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:swift_score/view/utilities/colors.dart';
 import '../../models/leagues_results.dart';
+import '../../view_model/fixtures.dart';
 import '../../view_model/leagues.dart';
 import '../../view_model/live_scores.dart';
 import '../utilities/styles.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Provider.of<Leagues>(context, listen: false).updateList();
       Provider.of<LiveScores>(context, listen: false).updateList();
+      Provider.of<Fixtures>(context, listen: false).updateList('2022-08-29');
     });
     super.initState();
   }

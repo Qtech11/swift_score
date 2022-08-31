@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:swift_score/view/utilities/colors.dart';
 import 'package:swift_score/view/screens/home_screen.dart';
 
+import '../screens/fixtures_screen.dart';
 import '../utilities/styles.dart';
 
 class BaseNavigationBar extends StatefulWidget {
@@ -17,9 +18,7 @@ class _BaseNavigationBarState extends State<BaseNavigationBar> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    Center(
-      child: Text('Fixtures', style: kTextStyle4(800)),
-    ),
+    FixturesScreen(),
     Center(
       child: Text('standings'),
     ),

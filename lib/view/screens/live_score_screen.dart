@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:swift_score/view/utilities/colors.dart';
 import '../../models/live_scores_results.dart';
 import '../../view_model/league_standing.dart';
 import '../../view_model/live_scores.dart';
@@ -21,8 +20,6 @@ class LiveScoreScreen extends StatelessWidget {
     LiveScores liveScoresModel =
         Provider.of<LiveScores>(context, listen: false);
     dynamic liveScoresList = liveScoresModel.list;
-    List<String> keys = liveScoresModel.keyList;
-    List<List<LiveScoresResult>> values = liveScoresModel.valueList;
 
     return Scaffold(
       backgroundColor: const Color(0xff333333),
@@ -45,8 +42,7 @@ class LiveScoreScreen extends StatelessWidget {
           ),
           liveScoresList == 'no result'
               ? Container()
-              : AllGroupsOfLiveScoresVerticalList(
-                  keys: keys, width: width, height: height, values: values),
+              : const AllGroupsOfLiveScoresVerticalList(),
         ],
       ),
     );
@@ -54,21 +50,16 @@ class LiveScoreScreen extends StatelessWidget {
 }
 
 class AllGroupsOfLiveScoresVerticalList extends StatelessWidget {
-  const AllGroupsOfLiveScoresVerticalList({
-    Key? key,
-    required this.keys,
-    required this.width,
-    required this.height,
-    required this.values,
-  }) : super(key: key);
-
-  final List<String> keys;
-  final double width;
-  final double height;
-  final List<List<LiveScoresResult>> values;
+  const AllGroupsOfLiveScoresVerticalList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    LiveScores liveScoresModel =
+        Provider.of<LiveScores>(context, listen: false);
+    List<String> keys = liveScoresModel.keyList;
+    List<List<LiveScoresResult>> values = liveScoresModel.valueList;
     return Expanded(
       child: ListView.builder(
         itemBuilder: (context, index) {
@@ -92,7 +83,7 @@ class AllGroupsOfLiveScoresVerticalList extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      LeagueStandingScreen()));
+                                      const LeagueStandingScreen()));
                         },
                         child: Row(
                           children: [
