@@ -6,15 +6,19 @@ class Fixtures extends ChangeNotifier {
   dynamic list = [];
   Map<String, List<FixturesResult>> map = {};
   List<String> keyList = [];
-  final List<List<FixturesResult>> valueList = [];
+  List<List<FixturesResult>> valueList = [];
 
   Future<void> updateList(String date) async {
+    list = [];
+    map = {};
+    keyList = [];
+    valueList = [];
+    // notifyListeners();
     list = await Api().getFixtures(date);
     if (list != 'no result') {
       rearrangeListToMap();
       convertMapKeyValueToList();
       notifyListeners();
-      // print(map);
     }
   }
 

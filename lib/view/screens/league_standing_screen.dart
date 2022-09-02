@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:swift_score/view/screens/fixtures_by_league_id_screen.dart';
 import '../utilities/colors.dart';
 import '../../view_model/league_standing.dart';
 import '../../view_model/leagues.dart';
@@ -76,14 +76,7 @@ class _LeagueStandingScreenState extends State<LeagueStandingScreen> {
           ),
           body: TabBarView(
             children: [
-              SizedBox(
-                child: Center(
-                  child: Text(
-                    'Our matches',
-                    style: kTextStyle4(width * 2),
-                  ),
-                ),
-              ),
+              const FixturesByIdScreen(),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: width * 0.02),
                 child: ListView(
@@ -159,7 +152,7 @@ class _LeagueStandingScreenState extends State<LeagueStandingScreen> {
                       gd: 'GD',
                       pts: "PTS",
                     ),
-                    Divider(
+                    const Divider(
                       color: kTextColors,
                       height: 0,
                     ),
@@ -296,7 +289,7 @@ class CustomText extends StatelessWidget {
       width: width / 16,
       child: Text(
         text,
-        style: GoogleFonts.poppins(textStyle: kTextStyle4(width)),
+        style: kTextStyle4(width),
         textAlign: TextAlign.center,
       ),
     );
@@ -329,7 +322,7 @@ class CustomContainer extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: GoogleFonts.poppins(textStyle: kTextStyle4(width)),
+            style: kTextStyle4(width),
           ),
         ),
       ),

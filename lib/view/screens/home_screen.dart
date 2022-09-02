@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:swift_score/view/utilities/colors.dart';
 import '../../models/leagues_results.dart';
@@ -27,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Provider.of<Leagues>(context, listen: false).updateList();
       Provider.of<LiveScores>(context, listen: false).updateList();
-      Provider.of<Fixtures>(context, listen: false).updateList('2022-08-29');
+      Provider.of<Fixtures>(context, listen: false)
+          .updateList(DateTime.now().toString().split(" ").first);
     });
     super.initState();
   }
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: height / 60,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+              padding: EdgeInsets.symmetric(horizontal: width * 0.03),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -80,9 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     'Live matches',
-                    style: GoogleFonts.poppins(
-                      textStyle: kTextStyle2(width),
-                    ),
+                    style: kTextStyle2(width),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -95,9 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Text(
                       'View All',
-                      style: GoogleFonts.poppins(
-                        textStyle: kTextStyle1(width),
-                      ),
+                      style: kTextStyle1(width),
                     ),
                   ),
                 ],
@@ -140,7 +136,7 @@ class HomeLeague extends StatelessWidget {
       ),
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: kBottomNavigationBarColor,
+        color: Colors.black54,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           bottomLeft: Radius.circular(30),
@@ -154,17 +150,13 @@ class HomeLeague extends StatelessWidget {
             children: [
               Text(
                 'Leagues',
-                style: GoogleFonts.poppins(
-                  textStyle: kTextStyle2(width),
-                ),
+                style: kTextStyle2(width),
               ),
               Padding(
                 padding: EdgeInsets.only(right: width * 0.05),
                 child: Text(
                   'View All',
-                  style: GoogleFonts.poppins(
-                    textStyle: kTextStyle1(width),
-                  ),
+                  style: kTextStyle1(width),
                 ),
               ),
             ],
@@ -200,28 +192,3 @@ class HomeLeague extends StatelessWidget {
     );
   }
 }
-// SizedBox(
-// height: height / 10,
-// width: height / 10,
-// child: leagueList != null
-// ? Image.network(
-// leagueList[index].leagueLogo,
-// errorBuilder: (BuildContext context, Object exception,
-// StackTrace? stackTrace) {
-// return Image.network(
-// 'https://www.clipartmax.com/png/middle/459-4590939_uefa-euro-logo-uefa-champions-league-sports-uefa-europa-league-2018-logo.png');
-// },
-// )
-// : Shimmer.fromColors(
-// baseColor: Colors.grey,
-// highlightColor: Colors.white,
-// child: Center(
-// child: Text(
-// '. . .',
-// style: TextStyle(
-// fontWeight: FontWeight.bold,
-// fontSize: height / 30),
-// ),
-// ),
-// ),
-// );

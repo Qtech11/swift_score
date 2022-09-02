@@ -4,7 +4,6 @@ import 'package:swift_score/view/utilities/colors.dart';
 import 'package:swift_score/view/screens/home_screen.dart';
 
 import '../screens/fixtures_screen.dart';
-import '../utilities/styles.dart';
 
 class BaseNavigationBar extends StatefulWidget {
   const BaseNavigationBar({Key? key}) : super(key: key);
@@ -18,14 +17,14 @@ class _BaseNavigationBarState extends State<BaseNavigationBar> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    FixturesScreen(),
-    Center(
+    const FixturesScreen(),
+    const Center(
       child: Text('standings'),
     ),
-    Center(
+    const Center(
       child: Text('news'),
     ),
-    Center(
+    const Center(
       child: Text('account'),
     ),
   ];

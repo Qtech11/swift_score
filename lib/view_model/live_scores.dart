@@ -8,15 +8,20 @@ class LiveScores extends ChangeNotifier {
   bool loaded = false;
   Map map = {};
   List<String> keyList = [];
-  final List<List<LiveScoresResult>> valueList = [];
+  List<List<LiveScoresResult>> valueList = [];
 
   Future<void> updateList() async {
+    list = [];
+    map = {};
+    keyList = [];
+    valueList = [];
     list = await Api().getLiveScores();
     if (list != 'no result') {
       rearrangeListToMap();
       convertMapKeyValueToList();
       notifyListeners();
     }
+    notifyListeners();
   }
 
   void rearrangeListToMap() {
