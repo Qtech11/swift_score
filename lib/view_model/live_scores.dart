@@ -7,6 +7,7 @@ class LiveScores extends ChangeNotifier {
   dynamic list = [];
   bool loaded = false;
   Map map = {};
+  Map<String, LiveScoresResult> eventMap = {};
   List<String> keyList = [];
   List<List<LiveScoresResult>> valueList = [];
 
@@ -34,6 +35,13 @@ class LiveScores extends ChangeNotifier {
       } else {
         map[key] = [object];
       }
+    }
+  }
+
+  void rearrangeListToEventKeyMap() {
+    for (LiveScoresResult object in list) {
+      final String key = object.eventKey;
+      map[key] = [object];
     }
   }
 

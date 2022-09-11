@@ -6,7 +6,7 @@ import '../fixtures_results.dart';
 import '../leagues_results.dart';
 
 const apiKey =
-    '7a8f5d416cef1887c995ae679324e5be1af61373d4cb9f7aa3982fbfbaadae98';
+    'ca179d2cdfa8ab0ea0761efef64894222d9010271d9d49d4fc537ceb40ebd518';
 const url = 'https://apiv2.allsportsapi.com/football';
 const leagueDataUrl = '$url/?met=Leagues&APIkey=$apiKey';
 const liveScoresUrl = '$url/?met=Livescore&APIkey=$apiKey';
@@ -29,11 +29,12 @@ class Api {
         return List<LeagueResults>.from(
             result['result'].map((x) => LeagueResults.fromJson(x)));
       } else {
-        print('failed to load data');
+        print('error loading data');
+        return <LeagueResults>[];
       }
     } catch (e) {
       print('bad guy ${e.toString()}');
-      // return <LeagueResults>[];
+      return <LeagueResults>[];
     }
   }
 
@@ -53,7 +54,8 @@ class Api {
           return 'no result';
         }
       } else {
-        print('failed to load data');
+        print('error loading data');
+        return [];
       }
     } catch (e) {
       print('bad guy ${e.toString()}');
@@ -71,7 +73,8 @@ class Api {
         dynamic result = jsonDecode(response.body);
         return result["result"];
       } else {
-        print('failed to load data');
+        print('error loading data');
+        return [];
       }
     } catch (e) {
       print('bad guy ${e.toString()}');
@@ -93,7 +96,8 @@ class Api {
           return 'no result';
         }
       } else {
-        print('failed to load data');
+        print('error loading data');
+        return [];
       }
     } catch (e) {
       print('bad guy ${e.toString()}');
@@ -117,7 +121,8 @@ class Api {
           return 'no result';
         }
       } else {
-        print('failed to load data');
+        print('error loading data');
+        return [];
       }
     } catch (e) {
       print('bad guy ${e.toString()}');

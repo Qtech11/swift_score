@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:swift_score/view/utilities/colors.dart';
 import 'package:swift_score/view/utilities/enums.dart';
+import 'package:swift_score/view/utilities/styles.dart';
 import '../../view_model/fixtures.dart';
 
 import '../widgets/fixtures_list.dart';
@@ -14,23 +15,23 @@ class FixturesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: kBackgroundColor1,
       appBar: AppBar(
         backgroundColor: kBackgroundColor1,
-        title: const Text('Fixtures'),
+        title: Text(
+          'Fixtures',
+          style: kTextStyle2(height),
+        ),
       ),
       body: Column(
         children: [
           HorizontalDatePicker(
             checkType: Type.isFixtures,
           ),
-          Padding(
-            padding: EdgeInsets.only(top: width * 0.05),
-          ),
           AllGroupsOfFixturesVerticalList(
             fixturesModel: Provider.of<Fixtures>(context),
+            checkType: Type.isFixtures,
           ),
         ],
       ),

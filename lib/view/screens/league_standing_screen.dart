@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swift_score/view/screens/fixtures_by_league_id_screen.dart';
+import 'package:swift_score/view/widgets/custom_box.dart';
 import '../utilities/colors.dart';
 import '../../view_model/league_standing.dart';
 import '../../view_model/leagues.dart';
@@ -49,18 +50,18 @@ class _LeagueStandingScreenState extends State<LeagueStandingScreen> {
                   width: height / 30,
                 ),
                 SizedBox(
-                  width: width / 20,
+                  width: width / 25,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       map[key]!.leagueName,
-                      style: kTextStyle4(width),
+                      style: kTextStyle6(height),
                     ),
                     Text(
                       map[key]!.countryName,
-                      style: kTextStyle5(width),
+                      style: kTextStyle5(height),
                     ),
                   ],
                 ),
@@ -71,7 +72,7 @@ class _LeagueStandingScreenState extends State<LeagueStandingScreen> {
                 Tab(text: 'Matches'),
                 Tab(text: 'Table'),
               ],
-              labelStyle: kTextStyle4(width),
+              labelStyle: kTextStyle6(height),
             ),
           ),
           body: TabBarView(
@@ -182,6 +183,81 @@ class _LeagueStandingScreenState extends State<LeagueStandingScreen> {
   }
 }
 
+class Loading extends StatelessWidget {
+  const Loading({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Column(
+      children: [
+        for (int index = 0; index < 20; index++)
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: height / 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: width * 0.46,
+                  child: Row(
+                    children: [
+                      CustomBox(
+                        height: height / 45,
+                        width: width / 16,
+                      ),
+                      SizedBox(
+                        width: width * 0.02,
+                      ),
+                      CustomBox(
+                        height: height / 45,
+                        width: width * 0.3,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: width * 0.5,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomBox(
+                        height: height / 45,
+                        width: width / 16,
+                      ),
+                      CustomBox(
+                        height: height / 45,
+                        width: width / 16,
+                      ),
+                      CustomBox(
+                        height: height / 45,
+                        width: width / 16,
+                      ),
+                      CustomBox(
+                        height: height / 45,
+                        width: width / 16,
+                      ),
+                      CustomBox(
+                        height: height / 45,
+                        width: width / 16,
+                      ),
+                      CustomBox(
+                        height: height / 45,
+                        width: width / 16,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
 class Standings extends StatelessWidget {
   const Standings({Key? key, required this.title}) : super(key: key);
 
@@ -189,21 +265,23 @@ class Standings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (int index = 0; index < title.length; index++)
-          CustomRow(
-            sn: "${index + 1}",
-            played: title[index].standingPlayed,
-            title: title[index].standingTeam,
-            won: title[index].standingWin,
-            draw: title[index].standingDraw,
-            loss: title[index].standingLoss,
-            gd: title[index].standingGoalDifference,
-            pts: title[index].standingPoints,
+    return title.isNotEmpty
+        ? Column(
+            children: [
+              for (int index = 0; index < title.length; index++)
+                CustomRow(
+                  sn: "${index + 1}",
+                  played: title[index].standingPlayed,
+                  title: title[index].standingTeam,
+                  won: title[index].standingWin,
+                  draw: title[index].standingDraw,
+                  loss: title[index].standingLoss,
+                  gd: title[index].standingGoalDifference,
+                  pts: title[index].standingPoints,
+                )
+            ],
           )
-      ],
-    );
+        : Loading();
   }
 }
 
@@ -252,7 +330,7 @@ class CustomRow extends StatelessWidget {
                   // width: double.,
                   child: Text(
                     title,
-                    style: kTextStyle4(width),
+                    style: kTextStyle6(height),
                   ),
                 ),
               ],
@@ -284,12 +362,13 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return SizedBox(
       width: width / 16,
       child: Text(
         text,
-        style: kTextStyle4(width),
+        style: kTextStyle6(height),
         textAlign: TextAlign.center,
       ),
     );
@@ -322,24 +401,10 @@ class CustomContainer extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: kTextStyle4(width),
+            style: kTextStyle6(height),
           ),
         ),
       ),
     );
   }
 }
-
-// (context, index) {
-// return CustomRow(
-// sn: "$index",
-// played: total[index].standingPlayed,
-// title: total[index].standingTeam,
-// won: total[index].standingWin,
-// draw: total[index].standingDraw,
-// loss: total[index].standingLoss,
-// gd: total[index].standingGoalDifference,
-// pts: total[index].standingPoints,
-// );
-// },
-// childCount: total.length,

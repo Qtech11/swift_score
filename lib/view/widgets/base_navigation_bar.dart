@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_score/view/utilities/colors.dart';
 import 'package:swift_score/view/screens/home_screen.dart';
+import 'package:swift_score/view/utilities/styles.dart';
 
 import '../screens/fixtures_screen.dart';
 
@@ -18,9 +19,6 @@ class _BaseNavigationBarState extends State<BaseNavigationBar> {
   List<Widget> screens = [
     const HomeScreen(),
     const FixturesScreen(),
-    const Center(
-      child: Text('standings'),
-    ),
     const Center(
       child: Text('news'),
     ),
@@ -43,36 +41,33 @@ class _BaseNavigationBarState extends State<BaseNavigationBar> {
       backgroundColor: const Color(0xff333333),
       body: screens[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        iconSize: height / 30,
         backgroundColor: kBottomNavigationBarColor,
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),
-            label: '.',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.sports_soccer),
-            label: '.',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.chart_bar_square),
-            label: '.',
+            label: 'Fixtures',
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.news),
-            label: '.',
+            label: 'News',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_rounded),
-            label: '.',
+            label: 'Account',
           ),
         ],
         currentIndex: selectedIndex,
         onTap: _onItemTapped,
-        selectedLabelStyle: const TextStyle(color: kBaseSelectedIconColors),
+        selectedLabelStyle: kTextStyle3(height),
         selectedItemColor: kBaseSelectedIconColors,
         unselectedItemColor: kBaseIconColors,
-        showSelectedLabels: false,
+        showSelectedLabels: true,
         showUnselectedLabels: false,
       ),
     );

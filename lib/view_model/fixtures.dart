@@ -5,6 +5,7 @@ import '../models/services/api.dart';
 class Fixtures extends ChangeNotifier {
   dynamic list = [];
   Map<String, List<FixturesResult>> map = {};
+
   List<String> keyList = [];
   List<List<FixturesResult>> valueList = [];
 
@@ -13,8 +14,10 @@ class Fixtures extends ChangeNotifier {
     map = {};
     keyList = [];
     valueList = [];
-    // notifyListeners();
+    notifyListeners();
+    print('ready');
     list = await Api().getFixtures(date);
+    print('done');
     if (list != 'no result') {
       rearrangeListToMap();
       convertMapKeyValueToList();

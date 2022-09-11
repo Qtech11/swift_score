@@ -9,7 +9,10 @@ class LeagueStandings extends ChangeNotifier {
   String? newKey;
 
   void updateList(String key) async {
-    print('running');
+    totalList = [];
+    homeList = [];
+    awayList = [];
+    notifyListeners();
     dynamic result = await Api().getLeagueStandings(key);
     totalList = mapToList(result["total"]);
     homeList = mapToList(result['home']);

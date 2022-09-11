@@ -2,30 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 
-TextStyle kTextStyle1(width) => GoogleFonts.poppins(
-    textStyle: TextStyle(fontSize: width / 25, color: kTextColors));
+TextStyle kTextStyle1(height) => GoogleFonts.poppins(
+    textStyle: TextStyle(fontSize: height / 43, color: kTextColors));
 
-TextStyle kTextStyle2(width) => GoogleFonts.poppins(
+TextStyle kTextStyle2(height) => GoogleFonts.poppins(
     textStyle: TextStyle(
-        fontSize: width / 22,
+        fontSize: height / 38,
         color: Colors.white,
-        fontWeight: FontWeight.w600));
+        fontWeight: FontWeight.w500));
 
-TextStyle kTextStyle3(width) => GoogleFonts.poppins(
+TextStyle kTextStyle3(height) => GoogleFonts.poppins(
         textStyle: TextStyle(
-      fontSize: width / 40,
+      fontSize: height / 65,
       color: kBaseSelectedIconColors,
     ));
 
-TextStyle kTextStyle4(width) => GoogleFonts.poppins(
+TextStyle kTextStyle4(height) => GoogleFonts.poppins(
         textStyle: TextStyle(
-      fontSize: width / 33,
+      fontSize: height / 55,
       color: Colors.white,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
     ));
 
-TextStyle kTextStyle5(width) => GoogleFonts.poppins(
+TextStyle kTextStyle5(height) => GoogleFonts.poppins(
         textStyle: TextStyle(
-      fontSize: width / 37,
+      fontSize: height / 60,
       color: kTextColors,
+    ));
+
+TextStyle kTextStyle6(height) => GoogleFonts.poppins(
+        textStyle: TextStyle(
+      fontSize: height / 57,
+      color: Colors.white,
+      fontWeight: FontWeight.w400,
+    ));
+
+TextStyle kTextStyle7(height) => GoogleFonts.poppins(
+        textStyle: TextStyle(
+      fontSize: height / 55,
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
     ));

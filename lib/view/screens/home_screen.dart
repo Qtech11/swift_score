@@ -52,26 +52,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icon(
                     Icons.sort,
                     color: kTextColors,
-                    size: width / 12,
+                    size: height / 22,
                   ),
                   SizedBox(
-                    width: width / 1.7,
+                    width: height / 3,
                     child: Image.asset('images/logo1.png'),
                   ),
                   Icon(
                     CupertinoIcons.search,
                     color: kTextColors,
-                    size: width / 12,
+                    size: height / 22,
                   ),
                 ],
               ),
             ),
             SizedBox(
-              height: height / 12,
+              height: height / 15,
             ),
             const HomeLeague(),
             SizedBox(
-              height: height / 20,
+              height: height / 15,
             ),
             Padding(
               padding: EdgeInsets.only(right: width * 0.05, left: width * 0.05),
@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     'Live matches',
-                    style: kTextStyle2(width),
+                    style: kTextStyle2(height),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Text(
                       'View All',
-                      style: kTextStyle1(width),
+                      style: kTextStyle1(height),
                     ),
                   ),
                 ],
@@ -107,6 +107,35 @@ class _HomeScreenState extends State<HomeScreen> {
               child: LiveScoresHorizontalList(
                 height: height,
                 width: width,
+              ),
+            ),
+            SizedBox(
+              height: height / 15,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+              child: Text(
+                'News',
+                style: kTextStyle2(height),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: width * 0.05,
+                vertical: height / 40,
+              ),
+              height: height / 4,
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(height / 60),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  'No news available',
+                  style: kTextStyle2(height),
+                ),
               ),
             ),
           ],
@@ -130,9 +159,9 @@ class HomeLeague extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: width * 0.05),
       padding: EdgeInsets.only(
-        left: width * 0.06,
-        top: width * 0.07,
-        bottom: width * 0.07,
+        left: width * 0.05,
+        top: width * 0.05,
+        bottom: width * 0.05,
       ),
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -150,19 +179,19 @@ class HomeLeague extends StatelessWidget {
             children: [
               Text(
                 'Leagues',
-                style: kTextStyle2(width),
+                style: kTextStyle2(height),
               ),
               Padding(
                 padding: EdgeInsets.only(right: width * 0.05),
                 child: Text(
                   'View All',
-                  style: kTextStyle1(width),
+                  style: kTextStyle1(height),
                 ),
               ),
             ],
           ),
           SizedBox(
-            height: width * 0.05,
+            height: height / 35,
           ),
           SizedBox(
             width: double.infinity,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:swift_score/view/screens/match_details_screen.dart';
+import 'package:swift_score/view_model/match_details.dart';
+import '../../view_model/fixtures.dart';
 import '../../view_model/live_scores.dart';
 import '../utilities/styles.dart';
 import 'cache_network_image.dart';
@@ -29,7 +32,7 @@ class LiveScoresHorizontalList extends StatelessWidget {
     } else {
       return Container(
         width: double.infinity,
-        height: height > width * 1.8 ? width / 1.8 : height / 3,
+        height: height / 3,
         padding: EdgeInsets.only(left: width * 0.05),
         child: ListView.separated(
           key: const PageStorageKey<String>('Second List'),
@@ -44,8 +47,8 @@ class LiveScoresHorizontalList extends StatelessWidget {
                     Radius.circular(height / 60),
                   ),
                 ),
-                height: height > width * 1.8 ? width / 1.8 : height / 3,
-                width: height > width * 1.8 ? width / 2.2 : height / 4,
+                height: height / 3.2,
+                width: height / 4.2,
                 child: liveScoresList.isNotEmpty
                     ? OriginalList(
                         width: width,
@@ -87,12 +90,12 @@ class LoadingIndicator extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomBox(
-              height: width / 17,
-              width: width / 10,
+              height: height / 25,
+              width: height / 14,
             ),
             CustomBox(
-              height: width / 30,
-              width: width / 20,
+              height: height / 45,
+              width: height / 30,
             ),
           ],
         ),
@@ -113,12 +116,12 @@ class LoadingIndicator extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomBox(
-              height: width / 30,
-              width: width / 5,
+              height: height / 50,
+              width: height / 7,
             ),
             CustomBox(
-              height: width / 30,
-              width: width / 25,
+              height: height / 50,
+              width: height / 40,
             ),
           ],
         ),
@@ -126,12 +129,12 @@ class LoadingIndicator extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomBox(
-              height: width / 30,
-              width: width / 5,
+              height: height / 50,
+              width: height / 7,
             ),
             CustomBox(
-              height: width / 30,
-              width: width / 25,
+              height: height / 50,
+              width: height / 40,
             ),
           ],
         ),
@@ -156,96 +159,104 @@ class OriginalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
+    return GestureDetector(
+      onTap: () {
+        Provider.of<MatchDetails>(context, listen: false)
+            .setKey(liveScoresList[index].eventKey);
+        Provider.of<MatchDetails>(context, listen: false)
+            .updateList(Provider.of<Fixtures>(context, listen: false).list);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MatchDetailsScreen(),
+          ),
+        );
+      },
+      child: Material(
+        color: Colors.black54.withOpacity(0),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.025, vertical: width * 0.015),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(height / 60),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: height / 25,
+                  width: height / 14,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(height / 60),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Live',
+                      style: TextStyle(
+                        fontSize: height / 47,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              child: Text(
-                'Live',
-                style: TextStyle(
-                  fontSize: width / 30,
-                  fontWeight: FontWeight.bold,
+                Text(
+                  liveScoresList[index].eventStatus == ""
+                      ? liveScoresList[index].eventTime
+                      : liveScoresList[index].eventStatus,
+                  style: kTextStyle4(height),
                 ),
-              ),
+              ],
             ),
-            Text(
-              liveScoresList[index].eventStatus,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: width / 30,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CacheNetworkImage(
+                  imageUrl: liveScoresList[index].homeTeamLogo,
+                  height: height / 20,
+                  width: height / 20,
+                ),
+                CacheNetworkImage(
+                  imageUrl: liveScoresList[index].awayTeamLogo,
+                  height: height / 20,
+                  width: height / 20,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    liveScoresList[index].eventHomeTeam,
+                    style: kTextStyle4(height),
+                  ),
+                ),
+                Text(
+                  liveScoresList[index].eventFinalResult[0],
+                  style: kTextStyle4(height),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    liveScoresList[index].eventAwayTeam ?? "0",
+                    style: kTextStyle4(height),
+                  ),
+                ),
+                Text(
+                  liveScoresList[index].eventFinalResult == "-"
+                      ? "-"
+                      : liveScoresList[index].eventFinalResult[4],
+                  style: kTextStyle4(height),
+                ),
+              ],
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CacheNetworkImage(
-              imageUrl: liveScoresList[index].homeTeamLogo,
-              height: height / 20,
-              width: width / 20,
-            ),
-            CacheNetworkImage(
-              imageUrl: liveScoresList[index].awayTeamLogo,
-              height: height / 20,
-              width: width / 20,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                liveScoresList[index].eventHomeTeam,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: width / 30,
-                ),
-              ),
-            ),
-            Text(
-              liveScoresList[index].eventFinalResult[0],
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: width / 30,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                liveScoresList[index].eventAwayTeam ?? "0",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: width / 30,
-                ),
-              ),
-            ),
-            Text(
-              liveScoresList[index].eventFinalResult[4] ?? "0",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: width / 30,
-              ),
-            ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:swift_score/view/utilities/colors.dart';
 import '../../models/live_scores_results.dart';
 import '../../view_model/league_standing.dart';
 import '../../view_model/live_scores.dart';
@@ -9,6 +10,7 @@ import '../widgets/cache_network_image.dart';
 import '../widgets/custom_box.dart';
 import '../widgets/live_scores_horizontal_list.dart';
 import 'league_standing_screen.dart';
+import 'package:swift_score/view/utilities/enums.dart';
 
 class LiveScoreScreen extends StatelessWidget {
   const LiveScoreScreen({Key? key}) : super(key: key);
@@ -22,10 +24,13 @@ class LiveScoreScreen extends StatelessWidget {
     dynamic liveScoresList = liveScoresModel.list;
 
     return Scaffold(
-      backgroundColor: const Color(0xff333333),
+      backgroundColor: kBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xff333333),
-        title: const Text('Live Scores'),
+        backgroundColor: kBackgroundColor,
+        title: Text(
+          'Live Scores',
+          style: kTextStyle2(height),
+        ),
       ),
       body: Column(
         children: [
@@ -63,16 +68,45 @@ class AllGroupsOfLiveScoresVerticalList extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return keys.isNotEmpty
-              ? Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: width * 0.02,
-                        right: width * 0.02,
-                        top: width * 0.02,
-                      ),
-                      child: GestureDetector(
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: width * 0.02,
+                  right: width * 0.02,
+                  top: width * 0.02,
+                ),
+                child: keys.isEmpty
+                    ? Row(
+                        children: [
+                          CustomBox1(
+                            height: width / 30,
+                            width: width / 22,
+                          ),
+                          SizedBox(
+                            width: width / 32,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomBox1(
+                                height: width / 32,
+                                width: width / 1.8,
+                              ),
+                              SizedBox(
+                                height: width / 60,
+                              ),
+                              CustomBox1(height: width / 35, width: width / 3)
+                            ],
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: Container(),
+                          ),
+                          CustomBox1(height: width / 32, width: width / 32),
+                        ],
+                      )
+                    : GestureDetector(
                         onTap: () {
                           print(keys[index]);
                           Provider.of<LeagueStandings>(context, listen: false)
@@ -98,15 +132,15 @@ class AllGroupsOfLiveScoresVerticalList extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: width / 1.5,
+                                  width: width / 1.4,
                                   child: Text(
                                     values[index][0].leagueName,
-                                    style: kTextStyle4(width),
+                                    style: kTextStyle6(height),
                                   ),
                                 ),
                                 Text(
                                   values[index][0].countryName,
-                                  style: kTextStyle5(width),
+                                  style: kTextStyle5(height),
                                 ),
                               ],
                             ),
@@ -122,21 +156,17 @@ class AllGroupsOfLiveScoresVerticalList extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                    GroupedLiveScoresVerticalList(
-                      values: values,
-                      width: width,
-                      height: height,
-                      index: index,
-                    ),
-                  ],
-                )
-              : CustomBox(
-                  height: height / 2,
-                  width: width / 2,
-                );
+              ),
+              GroupedLiveScoresVerticalList(
+                values: values,
+                width: width,
+                height: height,
+                index: index,
+              ),
+            ],
+          );
         },
-        itemCount: keys.length,
+        itemCount: keys.isEmpty ? 3 : keys.length,
       ),
     );
   }
@@ -158,99 +188,113 @@ class GroupedLiveScoresVerticalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (int i = 0; i < values[index].length; i++)
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: width * 0.02,
-              vertical: width * 0.005,
-            ),
-            padding: EdgeInsets.symmetric(
-                horizontal: width * 0.02, vertical: width * 0.02),
-            decoration: BoxDecoration(
-              color: Colors.black54,
-              borderRadius: BorderRadius.all(
-                Radius.circular(height / 100),
-              ),
-            ),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: width / 9,
-                  child: Text(
-                    values[index][i].eventStatus,
-                    style: kTextStyle3(width),
-                    textAlign: TextAlign.center,
+    return values.isEmpty
+        ? Column(
+            children: [
+              for (int i = 0; i < 4; i++)
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.02,
+                    vertical: width * 0.005,
+                  ),
+                  child:
+                      CustomBox1(height: height / 10, width: double.infinity),
+                )
+            ],
+          )
+        : Column(
+            children: [
+              for (int i = 0; i < values[index].length; i++)
+                Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: width * 0.02,
+                    vertical: width * 0.005,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.02, vertical: width * 0.02),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(height / 100),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: width / 9,
+                        child: Text(
+                          values[index][i].eventStatus,
+                          style: kTextStyle3(height),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          CacheNetworkImage(
+                            imageUrl: values[index][i].homeTeamLogo,
+                            height: height / 40,
+                            width: width / 40,
+                          ),
+                          SizedBox(
+                            height: height / 60,
+                          ),
+                          CacheNetworkImage(
+                            imageUrl: values[index][i].awayTeamLogo,
+                            height: height / 40,
+                            width: width / 40,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: width / 40,
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: width / 2,
+                            child: Text(
+                              values[index][i].eventHomeTeam,
+                              style: kTextStyle6(height),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          SizedBox(
+                            height: height / 80,
+                          ),
+                          SizedBox(
+                            width: width / 2,
+                            child: Text(
+                              values[index][i].eventAwayTeam,
+                              style: kTextStyle6(height),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: Container(),
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            values[index][i].eventFinalResult[0],
+                            style: kTextStyle6(height),
+                          ),
+                          SizedBox(
+                            height: height / 60,
+                          ),
+                          Text(
+                            values[index][i].eventFinalResult[4],
+                            style: kTextStyle6(height),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Column(
-                  children: [
-                    CacheNetworkImage(
-                      imageUrl: values[index][i].homeTeamLogo,
-                      height: height / 40,
-                      width: width / 40,
-                    ),
-                    SizedBox(
-                      height: height / 60,
-                    ),
-                    CacheNetworkImage(
-                      imageUrl: values[index][i].awayTeamLogo,
-                      height: height / 40,
-                      width: width / 40,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: width / 40,
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: width / 2,
-                      child: Text(
-                        values[index][i].eventHomeTeam,
-                        style: kTextStyle4(width),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    SizedBox(
-                      height: height / 80,
-                    ),
-                    SizedBox(
-                      width: width / 2,
-                      child: Text(
-                        values[index][i].eventAwayTeam,
-                        style: kTextStyle4(width),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Container(),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      values[index][i].eventFinalResult[0],
-                      style: kTextStyle4(width),
-                    ),
-                    SizedBox(
-                      height: height / 60,
-                    ),
-                    Text(
-                      values[index][i].eventFinalResult[4],
-                      style: kTextStyle4(width),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-      ],
-    );
+            ],
+          );
   }
 }
