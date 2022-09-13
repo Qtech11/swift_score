@@ -1,15 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_score/models/services/api.dart';
-import '../models/live_scores_results.dart';
+import '../models/fixtures_results.dart';
 
 class LiveScores extends ChangeNotifier {
   dynamic list = [];
   bool loaded = false;
   Map map = {};
-  Map<String, LiveScoresResult> eventMap = {};
+  Map<String, FixturesResult> eventMap = {};
   List<String> keyList = [];
-  List<List<LiveScoresResult>> valueList = [];
+  List<List<FixturesResult>> valueList = [];
 
   Future<void> updateList() async {
     list = [];
@@ -26,10 +26,10 @@ class LiveScores extends ChangeNotifier {
   }
 
   void rearrangeListToMap() {
-    for (LiveScoresResult object in list) {
+    for (FixturesResult object in list) {
       final String key = object.leagueKey;
       if (map.containsKey(key)) {
-        List<LiveScoresResult> c = map[key];
+        List<FixturesResult> c = map[key];
         c.add(object);
         map[key] = c;
       } else {
@@ -39,7 +39,7 @@ class LiveScores extends ChangeNotifier {
   }
 
   void rearrangeListToEventKeyMap() {
-    for (LiveScoresResult object in list) {
+    for (FixturesResult object in list) {
       final String key = object.eventKey;
       map[key] = [object];
     }

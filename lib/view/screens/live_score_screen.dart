@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swift_score/view/utilities/colors.dart';
-import '../../models/live_scores_results.dart';
+import '../../models/fixtures_results.dart';
 import '../../view_model/league_standing.dart';
 import '../../view_model/live_scores.dart';
 import '../utilities/styles.dart';
@@ -64,7 +64,7 @@ class AllGroupsOfLiveScoresVerticalList extends StatelessWidget {
     LiveScores liveScoresModel =
         Provider.of<LiveScores>(context, listen: false);
     List<String> keys = liveScoresModel.keyList;
-    List<List<LiveScoresResult>> values = liveScoresModel.valueList;
+    List<List<FixturesResult>> values = liveScoresModel.valueList;
     return Expanded(
       child: ListView.builder(
         itemBuilder: (context, index) {
@@ -181,7 +181,7 @@ class GroupedLiveScoresVerticalList extends StatelessWidget {
       required this.index})
       : super(key: key);
 
-  final List<List<LiveScoresResult>> values;
+  final List<List<FixturesResult>> values;
   final double width;
   final double height;
   final int index;

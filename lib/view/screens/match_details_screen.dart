@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:swift_score/models/fixtures_results.dart';
 import 'package:swift_score/view/utilities/colors.dart';
 import 'package:swift_score/view/utilities/styles.dart';
 
+import '../../models/fixtures_results.dart';
 import '../../view_model/match_details.dart';
 import '../widgets/cache_network_image.dart';
-import '../widgets/custom_box.dart';
 
 class MatchDetailsScreen extends StatelessWidget {
   const MatchDetailsScreen({Key? key}) : super(key: key);
@@ -17,8 +16,10 @@ class MatchDetailsScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     MatchDetails matchDetailsModel = Provider.of<MatchDetails>(context);
     String key = matchDetailsModel.key;
-    FixturesResult? results = matchDetailsModel.eventMap[key];
+    FixturesResult? results = matchDetailsModel.liveScoresEventMap[key];
     List<Statistics> stat = results!.statistics;
+    LineUps lineUps = results.lineUps;
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -32,18 +33,9 @@ class MatchDetailsScreen extends StatelessWidget {
               stat: stat,
               matchDetailsModel: matchDetailsModel,
             ),
-            ListView.builder(
-              itemBuilder: (context, index) => Container(
-                padding: EdgeInsets.all(height / 40),
-                color: Colors.primaries[index].shade500,
-                child: Center(
-                  child: Text(
-                    '$index',
-                    style: kTextStyle2(height),
-                  ),
-                ),
-              ),
-              itemCount: 15,
+            LineUpsScreen(
+              height: height,
+              lineUps: lineUps,
             ),
             ListView.builder(
               itemBuilder: (context, index) => Container(
@@ -61,6 +53,46 @@ class MatchDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class LineUpsScreen extends StatelessWidget {
+  LineUpsScreen({
+    Key? key,
+    required this.height,
+    required this.lineUps,
+  }) : super(key: key);
+
+  final double height;
+  final LineUps lineUps;
+
+  late Team home = lineUps.home;
+  late Team away = lineUps.away;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Column(
+          children: [
+            for (int i = 0; i < home.startingLineUps.length; i++)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    home.startingLineUps[i].player,
+                    style: kTextStyle4(height),
+                  ),
+                  Text(
+                    away.startingLineUps[i].player,
+                    style: kTextStyle4(height),
+                  ),
+                ],
+              )
+          ],
+        ),
+      ],
     );
   }
 }
@@ -236,7 +268,6 @@ class StatisticsScreen extends StatelessWidget {
                           away: stat[index].type == "Ball Possession"
                               ? stat[index].away.substring(0, 1)
                               : stat[index].away,
-                          isHome: true,
                         ),
                       ),
                     ),
@@ -267,7 +298,6 @@ class StatisticsScreen extends StatelessWidget {
                           away: stat[index].type == "Ball Possession"
                               ? stat[index].home.substring(0, 1)
                               : stat[index].home,
-                          isHome: false,
                         ),
                       ),
                     ),

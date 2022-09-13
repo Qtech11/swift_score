@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:swift_score/models/live_scores_results.dart';
 
 import '../fixtures_results.dart';
 import '../leagues_results.dart';
@@ -47,8 +46,8 @@ class Api {
         // then parse the JSON.
         Map result = jsonDecode(response.body);
         if (result.containsKey('result')) {
-          return List<LiveScoresResult>.from(
-              result['result'].map((x) => LiveScoresResult.fromJson(x)));
+          return List<FixturesResult>.from(
+              result['result'].map((x) => FixturesResult.fromJson(x)));
           // return LiveTeamModel.fromJson(result['result'][0]);
         } else {
           return 'no result';

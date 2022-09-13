@@ -66,7 +66,7 @@ class FixturesResult {
   String fkStageKey;
   String stageName;
   List<GoalScorers> goalScorers;
-  List substitutes;
+  List<Substitutes> substitutes;
   List<Cards> cards;
   LineUps lineUps;
   List<Statistics> statistics;
@@ -104,11 +104,14 @@ class FixturesResult {
       stageName: json["stage_name"] ?? "",
       goalScorers: List<GoalScorers>.from(
           json['goalscorers'].map((x) => GoalScorers.fromJson(x))),
-      substitutes: json['substitute'] ?? [],
+      substitutes: List<Substitutes>.from(
+        json['substitute'].map((x) => Substitutes.fromJson(x)),
+      ),
       cards: List<Cards>.from(json['cards'].map((x) => Cards.fromJson(x))),
       lineUps: LineUps.fromJson(json["lineups"]),
       statistics: List<Statistics>.from(
-          json["statistics"].map((x) => Statistics.fromJson(x))),
+        json["statistics"].map((x) => Statistics.fromJson(x)),
+      ),
     );
   }
 }
@@ -239,6 +242,49 @@ class GoalScorers {
       awayScorer: json['away_scorer'] ?? '',
       awayAssist: json['away_assist'] ?? '',
       score: json['score'] ?? '',
+    );
+  }
+}
+
+class Substitutes {
+  Sub home;
+  Sub away;
+  Map time;
+
+  Substitutes({
+    required this.home,
+    required this.away,
+    required this.time,
+  });
+
+  great() {}
+
+  factory Substitutes.fromJson(Map<String, dynamic> json) {
+    return Substitutes(
+      home: json["home_scorer"].isEmpty
+          ? Sub.fromJson({})
+          : Sub.fromJson(json["home_scorer"]),
+      away: json["away_scorer"].isEmpty
+          ? Sub.fromJson({})
+          : Sub.fromJson(json["away_scorer"]),
+      time: json["string"],
+    );
+  }
+}
+
+class Sub {
+  String inside;
+  String outside;
+
+  Sub({
+    required this.inside,
+    required this.outside,
+  });
+
+  factory Sub.fromJson(Map<String, String> json) {
+    return Sub(
+      inside: json["in"] ?? "",
+      outside: json["out"] ?? "",
     );
   }
 }

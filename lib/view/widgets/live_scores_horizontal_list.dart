@@ -163,8 +163,10 @@ class OriginalList extends StatelessWidget {
       onTap: () {
         Provider.of<MatchDetails>(context, listen: false)
             .setKey(liveScoresList[index].eventKey);
-        Provider.of<MatchDetails>(context, listen: false)
-            .updateList(Provider.of<Fixtures>(context, listen: false).list);
+        Provider.of<MatchDetails>(context, listen: false).updateList(
+          liveScoresList,
+          Provider.of<Fixtures>(context).list,
+        );
         Navigator.push(
           context,
           MaterialPageRoute(

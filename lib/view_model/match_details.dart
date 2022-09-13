@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
-
 import '../models/fixtures_results.dart';
 import '../view/utilities/colors.dart';
 
 class MatchDetails extends ChangeNotifier {
-  List list = [];
+  List liveScoresList = [];
+  List fixturesList = [];
   String key = '';
-  Map<String, FixturesResult> eventMap = {};
+  Map<String, FixturesResult> liveScoresEventMap = {};
+  Map<String, FixturesResult> fixturesEventMap = {};
   // List<String> eventKeyList = [];
   // List<FixturesResult> eventValueList = [];
 
-  MatchDetails();
-
-  void updateList(dynamic newList) {
-    list = newList;
+  void updateList(dynamic newLiveScoresList, dynamic newFixturesList) {
+    liveScoresList = newLiveScoresList;
+    fixturesList = newFixturesList;
     rearrangeListToEventKeyMap();
     notifyListeners();
   }
 
   void rearrangeListToEventKeyMap() {
-    if (list.isNotEmpty) {
-      for (FixturesResult object in list) {
+    if (liveScoresList.isNotEmpty) {
+      for (FixturesResult object in liveScoresList) {
         final String key = object.eventKey;
-        eventMap[key] = object;
+        liveScoresEventMap[key] = object;
       }
     }
+    for (FixturesResult object in fixturesList) {
+      final String key = object.eventKey;
+      fixturesEventMap[key] = object;
+    }
+
     notifyListeners();
   }
 
@@ -32,16 +37,12 @@ class MatchDetails extends ChangeNotifier {
     key = newKey;
   }
 
-  double calculateBarLength(
-      {required String home, required String away, required bool isHome}) {
+  double calculateBarLength({required String home, required String away}) {
     double h = double.parse(home);
     double a = double.parse(away);
     double t = h + a;
-    if (isHome) {
-      return h / t;
-    } else {
-      return a / t;
-    }
+
+    return h / t;
   }
 
   Color? checkColor({required String home, required String away}) {
