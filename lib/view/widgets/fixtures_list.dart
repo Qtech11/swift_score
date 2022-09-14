@@ -31,7 +31,7 @@ class AllGroupsOfFixturesVerticalList extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     List<String> keys = fixturesModel.keyList;
     List<List<FixturesResult>> values = fixturesModel.valueList;
-    if (fixturesModel.liveScoresList == 'no result') {
+    if (fixturesModel.list == 'no result') {
       return SizedBox(
         height: width,
         width: width / 1.2,

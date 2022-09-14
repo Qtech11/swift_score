@@ -105,8 +105,7 @@ class FixturesResult {
       goalScorers: List<GoalScorers>.from(
           json['goalscorers'].map((x) => GoalScorers.fromJson(x))),
       substitutes: List<Substitutes>.from(
-        json['substitute'].map((x) => Substitutes.fromJson(x)),
-      ),
+          json['substitute'].map((x) => Substitutes.fromJson(x))),
       cards: List<Cards>.from(json['cards'].map((x) => Cards.fromJson(x))),
       lineUps: LineUps.fromJson(json["lineups"]),
       statistics: List<Statistics>.from(
@@ -236,7 +235,7 @@ class GoalScorers {
 
   factory GoalScorers.fromJson(Map<String, dynamic> json) {
     return GoalScorers(
-      time: json['time'],
+      time: json['time'] ?? '',
       homeScorer: json['home_scorer'] ?? '',
       homeAssist: json['home_assist'] ?? '',
       awayScorer: json['away_scorer'] ?? '',
@@ -256,8 +255,6 @@ class Substitutes {
     required this.away,
     required this.time,
   });
-
-  great() {}
 
   factory Substitutes.fromJson(Map<String, dynamic> json) {
     return Substitutes(
@@ -281,7 +278,7 @@ class Sub {
     required this.outside,
   });
 
-  factory Sub.fromJson(Map<String, String> json) {
+  factory Sub.fromJson(Map<String, dynamic> json) {
     return Sub(
       inside: json["in"] ?? "",
       outside: json["out"] ?? "",
