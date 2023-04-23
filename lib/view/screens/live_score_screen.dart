@@ -10,7 +10,6 @@ import '../widgets/cache_network_image.dart';
 import '../widgets/custom_box.dart';
 import '../widgets/live_scores_horizontal_list.dart';
 import 'league_standing_screen.dart';
-import 'package:swift_score/view/utilities/enums.dart';
 
 class LiveScoreScreen extends StatelessWidget {
   const LiveScoreScreen({Key? key}) : super(key: key);

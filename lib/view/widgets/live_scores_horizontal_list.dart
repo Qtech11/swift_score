@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:swift_score/view/screens/match_details_screen.dart';
 import 'package:swift_score/view_model/match_details.dart';
 import '../../view_model/fixtures.dart';
+import '../../view_model/league_standing.dart';
 import '../../view_model/live_scores.dart';
 import '../utilities/styles.dart';
 import 'cache_network_image.dart';
@@ -165,8 +166,10 @@ class OriginalList extends StatelessWidget {
             .setKey(liveScoresList[index].eventKey);
         Provider.of<MatchDetails>(context, listen: false).updateList(
           liveScoresList,
-          Provider.of<Fixtures>(context).list,
+          Provider.of<Fixtures>(context, listen: false).list,
         );
+        Provider.of<LeagueStandings>(context, listen: false)
+            .updateList(liveScoresList[index].leagueKey);
         Navigator.push(
           context,
           MaterialPageRoute(

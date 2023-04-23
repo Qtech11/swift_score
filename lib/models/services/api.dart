@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import '../fixtures_results.dart';
 import '../leagues_results.dart';
 
 const apiKey =
-    'ca179d2cdfa8ab0ea0761efef64894222d9010271d9d49d4fc537ceb40ebd518';
+    '4f27d3bf65b370a507a226e93e664dc5dc04a2fa3c41ce56204ba852ef7b4a7f';
 const url = 'https://apiv2.allsportsapi.com/football';
 const leagueDataUrl = '$url/?met=Leagues&APIkey=$apiKey';
 const liveScoresUrl = '$url/?met=Livescore&APIkey=$apiKey';
@@ -40,7 +39,6 @@ class Api {
   Future<dynamic> getLiveScores() async {
     try {
       http.Response response = await http.get(Uri.parse(liveScoresUrl));
-
       if (response.statusCode == 200) {
         // If the server did return a 200 OK response,
         // then parse the JSON.
@@ -48,7 +46,6 @@ class Api {
         if (result.containsKey('result')) {
           return List<FixturesResult>.from(
               result['result'].map((x) => FixturesResult.fromJson(x)));
-          // return LiveTeamModel.fromJson(result['result'][0]);
         } else {
           return 'no result';
         }

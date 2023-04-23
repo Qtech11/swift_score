@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swift_score/view/utilities/colors.dart';
 import 'package:swift_score/view/utilities/styles.dart';
+import 'package:swift_score/view/widgets/league_table.dart';
+import 'package:swift_score/view_model/league_standing.dart';
 
 import '../../models/fixtures_results.dart';
 import '../../view_model/match_details.dart';
@@ -37,19 +39,7 @@ class MatchDetailsScreen extends StatelessWidget {
               height: height,
               lineUps: lineUps,
             ),
-            ListView.builder(
-              itemBuilder: (context, index) => Container(
-                padding: EdgeInsets.all(height / 40),
-                color: Colors.primaries[index],
-                child: Center(
-                  child: Text(
-                    '$index',
-                    style: kTextStyle2(height),
-                  ),
-                ),
-              ),
-              itemCount: 15,
-            ),
+            const LeagueTable(),
           ],
         ),
       ),

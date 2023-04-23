@@ -16,9 +16,9 @@ class LeagueResults {
   String countryLogo;
 
   factory LeagueResults.fromJson(Map<String, dynamic> json) => LeagueResults(
-        leagueKey: json["league_key"],
+        leagueKey: json["league_key"].toString(),
         leagueName: json["league_name"],
-        countryKey: json["country_key"],
+        countryKey: json["country_key"].toString(),
         countryName: json["country_name"],
         leagueLogo: json["league_logo"] ??
             "https://image.pngaaa.com/187/171187-middle.png",

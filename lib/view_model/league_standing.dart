@@ -17,7 +17,6 @@ class LeagueStandings extends ChangeNotifier {
     totalList = mapToList(result["total"]);
     homeList = mapToList(result['home']);
     awayList = mapToList(result['away']);
-    print(totalList[0].leagueSeason);
     notifyListeners();
   }
 

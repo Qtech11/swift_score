@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:swift_score/models/services/api.dart';
-import 'package:swift_score/view/screens/home_screen.dart';
-import 'package:swift_score/view/screens/match_details_screen.dart';
 import 'package:swift_score/view_model/fixtures.dart';
 import 'package:swift_score/view_model/fixtures_by_league_id.dart';
 import 'package:swift_score/view_model/league_standing.dart';

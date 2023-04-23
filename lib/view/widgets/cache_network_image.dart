@@ -21,16 +21,17 @@ class CacheNetworkImage extends StatelessWidget {
       height: height,
       width: height,
       imageUrl: imageUrl,
-      progressIndicatorBuilder: (context, url, downloadProgress) {
+      progressIndicatorBuilder: (context, imageUrl, downloadProgress) {
         return CustomBox(
           width: height,
           height: width,
         );
       },
-      errorWidget: (context, url, error) {
-        return CustomBox(
+      errorWidget: (context, imageUrl, error) {
+        return SizedBox(
           width: height,
           height: width,
+          child: Image.asset('images/default.png'),
         );
       },
     );

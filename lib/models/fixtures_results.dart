@@ -73,13 +73,13 @@ class FixturesResult {
 
   factory FixturesResult.fromJson(Map<String, dynamic> json) {
     return FixturesResult(
-      eventKey: json["event_key"],
+      eventKey: json["event_key"].toString(),
       eventDate: json["event_date"],
       eventTime: json["event_time"] ?? "",
       eventHomeTeam: json["event_home_team"] ?? "",
-      homeTeamKey: json["home_team_key"] ?? "",
+      homeTeamKey: json["home_team_key"].toString(),
       eventAwayTeam: json["event_away_team"] ?? "",
-      awayTeamKey: json["away_team_key"] ?? "",
+      awayTeamKey: json["away_team_key"].toString(),
       eventHalftimeResult: json["event_halftime_result"] ?? "",
       eventFinalResult: json["event_final_result"] ?? '',
       eventFtResult: json["event_ft_result"] ?? "",
@@ -87,7 +87,7 @@ class FixturesResult {
       eventStatus: json["event_status"] ?? "",
       countryName: json["country_name"] ?? "",
       leagueName: json["league_name"] ?? "",
-      leagueKey: json["league_key"] ?? "",
+      leagueKey: json["league_key"].toString(),
       leagueRound: json["league_round"] ?? "",
       leagueSeason: json["league_season"] ?? "",
       eventLive: json["event_live"] ?? "",
@@ -95,17 +95,25 @@ class FixturesResult {
       eventReferee: json["event_referee"] ?? "",
       homeTeamLogo: json["home_team_logo"] ?? "",
       awayTeamLogo: json["away_team_logo"] ?? "",
-      eventCountryKey: json["event_country_key"] ?? "",
+      eventCountryKey: json["event_country_key"].toString(),
       leagueLogo: json["league_logo"] ?? "",
       countryLogo: json["country_logo"] ?? "",
       eventHomeFormation: json["event_home_formation"] ?? '',
       eventAwayFormation: json["event_away_formation"] ?? '',
-      fkStageKey: json["fk_stage_key"] ?? "",
+      fkStageKey: json["fk_stage_key"].toString(),
       stageName: json["stage_name"] ?? "",
       goalScorers: List<GoalScorers>.from(
           json['goalscorers'].map((x) => GoalScorers.fromJson(x))),
-      substitutes: List<Substitutes>.from(
-          json['substitute'].map((x) => Substitutes.fromJson(x))),
+      substitutes: json['substitute'] != null
+          ? List<Substitutes>.from(
+              json['substitute'].map((x) => Substitutes.fromJson(x)))
+          : [
+              Substitutes(
+                home: Sub(inside: '', outside: ''),
+                away: Sub(inside: '', outside: ''),
+                time: '',
+              ),
+            ],
       cards: List<Cards>.from(json['cards'].map((x) => Cards.fromJson(x))),
       lineUps: LineUps.fromJson(json["lineups"]),
       statistics: List<Statistics>.from(
@@ -167,9 +175,9 @@ class StartingLineUps {
   factory StartingLineUps.fromJson(Map<String, dynamic> json) {
     return StartingLineUps(
       player: json['player'] ?? '',
-      playerNumber: json['player_number'] ?? '',
-      playerPosition: json['player_position'] ?? '',
-      playerKey: json['player_key'] ?? '',
+      playerNumber: json['player_number'].toString(),
+      playerPosition: json['player_position'].toString(),
+      playerKey: json['player_key'].toString(),
     );
   }
 }
@@ -248,7 +256,7 @@ class GoalScorers {
 class Substitutes {
   Sub home;
   Sub away;
-  Map time;
+  String time;
 
   Substitutes({
     required this.home,
