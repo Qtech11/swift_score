@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swift_score/view/utilities/colors.dart';
 import 'package:swift_score/view/screens/home_screen.dart';
+import 'package:swift_score/view/utilities/colors.dart';
 import 'package:swift_score/view/utilities/styles.dart';
 
 import '../screens/fixtures_screen.dart';
@@ -20,7 +20,7 @@ class _BaseNavigationBarState extends State<BaseNavigationBar> {
     const HomeScreen(),
     const FixturesScreen(),
     const Center(
-      child: Text('news'),
+      child: Text('News'),
     ),
     const Center(
       child: Text('account'),
